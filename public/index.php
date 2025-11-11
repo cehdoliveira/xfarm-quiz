@@ -12,8 +12,14 @@
             <h1>🎬 Que série de TV você é?</h1>
             <p class="subtitle">Descubra qual série melhor representa você!</p>
             
+            <!-- Indicador de progresso -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <div class="progress-text" id="progress-text">Pergunta 1 de 5</div>
+            </div>
+            
             <div class="error-message" id="error-message">
-                Por favor, responda todas as perguntas antes de continuar.
+                Por favor, selecione uma resposta antes de continuar.
             </div>
 
             <?php
@@ -25,10 +31,10 @@
 
             <form id="quiz-form" method="POST" action="result.php" data-questions="<?php echo count($questions); ?>">
                 <?php
-                foreach ($questions as $question):
+                foreach ($questions as $questionIndex => $question):
                     $shuffledAnswers = $question->getShuffledAnswers();
                 ?>
-                    <div class="question">
+                    <div class="question" id="question-<?php echo $questionIndex; ?>" style="display: <?php echo $questionIndex === 0 ? 'block' : 'none'; ?>;">
                         <div class="question-title">
                             <?php echo $question->getId(); ?>. <?php echo htmlspecialchars($question->getText()); ?>
                         </div>
@@ -48,7 +54,11 @@
                     </div>
                 <?php endforeach; ?>
 
-                <button type="submit" class="submit-btn">Ver Resultado</button>
+                <div class="navigation-buttons">
+                    <button type="button" class="nav-btn prev-btn" id="prev-btn" style="display: none;">← Anterior</button>
+                    <button type="button" class="nav-btn next-btn" id="next-btn">Próxima →</button>
+                    <button type="submit" class="submit-btn" id="submit-btn" style="display: none;">Ver Resultado</button>
+                </div>
             </form>
         </div>
 
