@@ -15,10 +15,13 @@ Este é um quiz interativo que analisa suas respostas para 5 perguntas do cotidi
 ## 🎯 Características
 
 - ✅ Interface web responsiva e moderna
+- ✅ **Navegação passo a passo** - Uma pergunta por vez com indicador de progresso
 - ✅ 5 perguntas com 5 alternativas cada
 - ✅ Respostas embaralhadas aleatoriamente
+- ✅ **Botões de navegação** - Avançar/Voltar entre perguntas
+- ✅ **Barra de progresso visual** - Acompanhe seu avanço no quiz
 - ✅ Algoritmo de pontuação ponderada (sem possibilidade de empate)
-- ✅ Design limpo e intuitivo
+- ✅ Design limpo e intuitivo com animações suaves
 - ✅ Sem dependências de frameworks
 - ✅ Testes unitários completos
 - ✅ Validação de 1 milhão de combinações
@@ -97,21 +100,34 @@ Este script verifica que:
 ### Estrutura de Arquivos
 
 ```
-quiz-xfarm/
-├── public/
-│   ├── index.php          # Interface do quiz
-│   └── result.php         # Página de resultado
-├── src/
-│   ├── Answer.php         # Classe de resposta
-│   ├── Question.php       # Classe de pergunta
-│   ├── Quiz.php           # Lógica principal do quiz
-│   └── Series.php         # Constantes e mensagens das séries
-├── tests/
-│   └── QuizTest.php       # Testes unitários
-├── test_no_ties.php       # Script de teste de empate
-├── composer.json          # Dependências (PHPUnit)
-├── phpunit.xml            # Configuração do PHPUnit
-└── README.md              # Esta documentação
+xfarm-quiz/
+├── public/                    # Arquivos públicos (Document Root)
+│   ├── index.php              # Página principal do quiz (interface step-by-step)
+│   ├── result.php             # Página de resultado
+│   └── assets/                # Recursos estáticos
+│       ├── css/
+│       │   ├── style.css      # Estilos principais (com navegação e progresso)
+│       │   └── result.css     # Estilos da página de resultado
+│       └── js/
+│           └── quiz.js        # Lógica de navegação entre perguntas
+│
+├── src/                       # Código-fonte PHP (Classes)
+│   ├── Answer.php             # Classe de resposta
+│   ├── Question.php           # Classe de pergunta com embaralhamento
+│   ├── Quiz.php               # Lógica principal e algoritmo de pontuação
+│   └── Series.php             # Constantes e mensagens das séries
+│
+├── tests/                     # Testes automatizados
+│   └── QuizTest.php           # Testes unitários (PHPUnit)
+│
+├── vendor/                    # Dependências do Composer (gerado)
+│   └── ...                    # PHPUnit e dependências
+│
+├── test_no_ties.php           # Script de validação de empates
+├── composer.json              # Configuração de dependências
+├── composer.lock              # Lock file do Composer
+├── phpunit.xml                # Configuração do PHPUnit
+└── README.md                  # Esta documentação
 ```
 
 ### Algoritmo de Desempate
@@ -168,13 +184,18 @@ Esta abordagem garante que:
 #### 2. **Sem Frameworks**
 Código vanilla PHP para máxima compatibilidade e simplicidade, conforme solicitado.
 
-#### 3. **Interface Responsiva**
+#### 3. **Interface Responsiva com Navegação Step-by-Step**
 - CSS moderno com gradientes e animações
+- **Sistema de navegação por etapas** - Uma pergunta por vez
+- **Barra de progresso visual** - Indicador de progresso do quiz
+- **Botões de navegação** - Avançar/Voltar entre perguntas
 - Mobile-first design
-- Experiência do usuário fluida
+- Experiência do usuário fluida e intuitiva
+- Validação em tempo real antes de avançar
 
 #### 4. **Validação**
-- Cliente: JavaScript valida respostas antes do envio
+- Cliente: JavaScript valida respostas antes de avançar para próxima pergunta
+- Cliente: Validação final antes do envio do formulário
 - Servidor: PHP valida novamente por segurança
 
 ## ✅ Casos de Teste Validados
@@ -214,12 +235,24 @@ Os seguintes casos de teste foram implementados e validados:
 - **Testes**: PHPUnit 9.5
 - **Servidor**: PHP Built-in Server / Apache / Nginx
 
-## 📱 Screenshots
+## 📱 Interface do Usuário
 
-A aplicação possui:
-- Página inicial com quiz interativo
-- Validação visual de respostas
-- Página de resultado com design atraente
+A aplicação possui uma experiência moderna e intuitiva:
+
+### Página Principal (Quiz)
+- **Navegação Step-by-Step**: Uma pergunta exibida por vez
+- **Barra de Progresso**: Indicador visual mostrando "Pergunta X de 5"
+- **Botões de Navegação**:
+  - "← Anterior": Volta para pergunta anterior (oculto na primeira pergunta)
+  - "Próxima →": Avança para próxima pergunta (oculto na última pergunta)
+  - "Ver Resultado": Aparece apenas na última pergunta
+- **Validação em Tempo Real**: Não permite avançar sem responder
+- **Animações Suaves**: Transições fluidas entre perguntas
+- **Design Responsivo**: Funciona perfeitamente em mobile e desktop
+
+### Página de Resultado
+- Design atraente com a série identificada
+- Mensagem personalizada para cada série
 - Opção de refazer o quiz
 - Opção de imprimir o resultado
 
