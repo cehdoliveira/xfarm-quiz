@@ -37,7 +37,7 @@ Este é um quiz interativo que analisa suas respostas para 5 perguntas do cotidi
 
 1. Clone o repositório ou extraia os arquivos:
 ```bash
-cd quiz-xfarm
+cd xfarm-quiz
 ```
 
 2. (Opcional) Instale as dependências de desenvolvimento para rodar os testes:
